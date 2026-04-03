@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// M1: Improper credential user
 
@@ -32,5 +32,5 @@ class _OwaspM1State extends State<OwaspM1> {
   /* #endregion */
 
   @override
-  Widget build(BuildContext context) => const Placeholder();
+  Widget build(BuildContext context) => Scaffold(appBar: AppBar());
 }
