@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:owasptoprisks/dependencies_scope.dart';
+import 'package:owasptoprisks/main.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // OWASP M1 — Improper Credential Usage
@@ -207,7 +208,7 @@ class _PinHashCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Stored PIN Hash',
+                'Stored PIN Hash: $sensetiveToken',
                 style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               ),
             ],
@@ -268,6 +269,12 @@ class OwaspM1PinController with ChangeNotifier {
     busy = false;
     notifyListeners();
   }
+
+  // DONT DO THIS
+  // void saveTokens(final String refreshToken, final String accessToken) async {
+  //   await flutterSecureStorage.write(key: 'refresh_token', value: refreshToken);
+  //   await flutterSecureStorage.write(key: 'access_token', value: accessToken);
+  // }
 }
 
 abstract interface class IOwaspM1Pin {

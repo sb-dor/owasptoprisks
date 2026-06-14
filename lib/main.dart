@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:l/l.dart';
 import 'package:owasptoprisks/dependencies.dart';
 import 'package:owasptoprisks/dependencies_scope.dart';
 import 'package:owasptoprisks/owasp_m1.dart';
 import 'error_widget.dart' deferred as error_widget;
+
+const sensetiveToken = 'ksdjflksajdlkjals-owasp2026-sjdlksaldjlkaj2323cvmmr4m2@';
 
 void main() => runZonedGuarded(
   () async {
@@ -18,9 +21,7 @@ void main() => runZonedGuarded(
       },
       onInitializationDone: (dependencies) {
         // OwaspM1();
-        runApp(
-          DependenciesScope.inject(dependencies, MaterialApp(home: OwaspM1())),
-        );
+        runApp(DependenciesScope.inject(dependencies, MaterialApp(home: OwaspM1())));
       },
       onError: (step) async {
         await error_widget.loadLibrary();
@@ -67,12 +68,18 @@ Map<String, FutureOr<void> Function(Dependencies dependencies)> get _steps {
   return {
     'flutter_secure_storage_initialization': (dependencies) {
       return dependencies.flutterSecureStorage = FlutterSecureStorage(
-        aOptions: AndroidOptions(),
+        /// On Android, everything already works perfectly.
+        aOptions: AndroidOptions.defaultOptions,
         iOptions: IOSOptions(
-          /// most relyable
+          /// It's secure because the data is stored on the device and isn't backed up or saved in the cloud.
           accessibility: KeychainAccessibility.first_unlock_this_device,
         ),
       );
+    },
+    'initialize dot env': (dependencies) async {
+      await dotenv.load();
+      final key = dotenv.get('KEY');
+      l.d('private key: $key');
     },
   };
 }
