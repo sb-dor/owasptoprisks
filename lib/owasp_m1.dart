@@ -207,9 +207,11 @@ class _PinHashCard extends StatelessWidget {
                 color: hasHash ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
               ),
               const SizedBox(width: 8),
-              Text(
-                'Stored PIN Hash: $sensetiveToken',
-                style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              Flexible(
+                child: Text(
+                  'Stored PIN Hash: $sensetiveToken',
+                  style: theme.textTheme.labelLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                ),
               ),
             ],
           ),
